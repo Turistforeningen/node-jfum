@@ -1,0 +1,45 @@
+{
+  "name": "jfum",
+  "version": "0.0.0",
+  "description": "Minimal jQuery File Upload Middleware",
+  "main": "lib/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "start": "supervisor -w . -- examples/basic/server.coffee",
+    "postinstall": "rm -rf lib/* && coffee --bare -o lib/ -c src/; [ -d .git/hooks/ ] && cp config/git-hooks/pre-commit .git/hooks/.",
+    "test": "mocha -w -b -c --check-leaks test/suite.coffee -R progress --compilers coffee:coffee-script/register",
+    "test-drone": "node_modules/.bin/mocha -b -c --check-leaks test/suite.coffee -R spec --compilers coffee:coffee-script/register"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Turistforeningen/jfum.git"
+  },
+  "keywords": [
+    "aws",
+    "s3",
+    "imagemagic",
+    "image",
+    "resize",
+    "rename",
+    "upload"
+  ],
+  "contributors": [
+    "Håvard Ranum <havard.ranum@bouvet.no>",
+    "Hans Kristian Flaatten <hans.kristian.flaatten@turistforeningen.no>"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Turistforeningen/jfum/issues"
+  },
+  "homepage": "https://github.com/Turistforeningen/jfum",
+  "devDependencies": {
+    "coffee-script": "^1.7.1",
+    "express": "^4.4.2",
+    "mocha": "^1.20.1",
+    "multiparty": "^3.2.8",
+    "supervisor": "^0.6.0"
+  },
+  "dependencies": {}
+}
