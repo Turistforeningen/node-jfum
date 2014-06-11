@@ -23,13 +23,17 @@ JFUM.prototype.optionsHandler = (req, res, next) ->
 JFUM.prototype.postHandler = (req, res, next) ->
   res.set 'Access-Control-Allow-Origin', '*'
 
-  req.jfum = null
-
   form = new Form()
   form.on 'error', next
   form.on 'close', next
   form.on 'part', (part) =>
-    return next() if not part.filename or not @acceptFileTypes.test part.filename
+    if not part.filename or not @acceptFileTypes.test part.filename
+      req.jfum = error: code: 'JFUM-001', msg: 'File type not allowed'
+      return next()
+
+    if not @maxFileSize <= part.byteCount <= @minFileSize
+      req.jfum = error: code: 'JFUM-002', msg: 'File size not allowed'
+      return next()
 
     req.jfum =
       name: part.filename
