@@ -6,6 +6,10 @@ jfum = new JFUM
   maxFileSize: 10000000000
   acceptFileTypes: /\.(gif|jpe?g|png)$/i
 
+app.use (err, res, next) ->
+  res.set 'Access-Control-Allow-Origin', '*'
+  next()
+
 app.options '/upload', jfum.optionsHandler.bind(jfum)
 app.post '/upload', jfum.postHandler.bind(jfum), (req, res, next) ->
   console.log req.jfum

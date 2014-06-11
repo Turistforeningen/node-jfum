@@ -15,14 +15,11 @@ JFUM = module.exports = (opts) ->
 
 JFUM.prototype.optionsHandler = (req, res, next) ->
   res.set
-    'Access-Control-Allow-Origin': '*'
     'Access-Control-Allow-Methods': 'OPTIONS, POST'
     'Access-Control-Allow-Headers': 'Content-Type'
   next()
 
 JFUM.prototype.postHandler = (req, res, next) ->
-  res.set 'Access-Control-Allow-Origin', '*'
-
   form = new Form()
   form.on 'error', next
   form.on 'close', next
