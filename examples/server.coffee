@@ -6,8 +6,8 @@ app = module.exports = express()
 
 JFUM = require '../src/index.coffee'
 jfum = new JFUM
-  minFileSize: 0
-  maxFileSize: 10000000000
+  minFileSize: 204800   # 200 kB
+  maxFileSize: 5242880  # 5 mB
   acceptFileTypes: /\.(gif|jpe?g|png)$/i
 
 app.use(logger('dev'))

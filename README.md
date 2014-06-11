@@ -26,8 +26,8 @@ npm install jfum --save
 var JFUM = require('JFUM');
 var jfum = new JFUM({
   tmpDir: '/tmp',
-  minFileSize: 1,
-  maxFileSize: 10000000000,
+  minFileSize: 204800,  // 200 kB
+  maxFileSize: 5242880, // 5 mB
   acceptFileTypes: /\.(gif|jpe?g|png)$/i
 });
 ```
