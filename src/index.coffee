@@ -29,11 +29,11 @@ JFUM.prototype.postHandler = (req, res, next) ->
   form.on 'part', (part) =>
     if not part.filename or not @acceptFileTypes.test part.filename
       req.jfum = error: code: 'JFUM-001', msg: 'File type not allowed'
-      return next()
+      return part.pipe createWriteStream '/dev/null'
 
     if not @maxFileSize <= part.byteCount <= @minFileSize
       req.jfum = error: code: 'JFUM-002', msg: 'File size not allowed'
-      return next()
+      return part.pipe createWriteStream '/dev/null'
 
     req.jfum =
       name: part.filename
