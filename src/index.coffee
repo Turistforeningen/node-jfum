@@ -20,27 +20,31 @@ JFUM.prototype.optionsHandler = (req, res, next) ->
   next()
 
 JFUM.prototype.postHandler = (req, res, next) ->
+  req.jfum = files: []
+
   form = new Form()
   form.on 'error', next
   form.on 'close', next
   form.on 'part', (part) =>
     if not part.filename or not @acceptFileTypes.test part.filename
-      req.jfum = error: code: 'JFUM-001', msg: 'File type not allowed'
-      return part.pipe createWriteStream '/dev/null'
+      req.jfum.files.push error: code: 'JFUM-001', msg: 'File type not allowed'
+      return part.pipe createWriteStream('/dev/null').on 'error', next
 
-    if not @maxFileSize <= part.byteCount <= @minFileSize
-      req.jfum = error: code: 'JFUM-002', msg: 'File size not allowed'
-      return part.pipe createWriteStream '/dev/null'
+    if @maxFileSize < part.byteCount
+      req.jfum.files.push error: code: 'JFUM-002', msg: 'File size too big'
+      return part.pipe createWriteStream('/dev/null').on 'error', next
 
-    req.jfum =
+    if @minFileSize > part.byteCount
+      req.jfum.files.push error: code: 'JFUM-003', msg: 'File size too small'
+      return part.pipe createWriteStream('/dev/null').on 'error', next
+
+    i = req.jfum.files.push
       name: part.filename
       file: @tmpDir + '/jfum-' + hash('sha1').update(rand(128)).digest('hex')
       size: part.byteCount
       type: part.headers['content-type']
 
-    write = createWriteStream req.jfum.file
-    write.on 'error', next
-    part.pipe write
+    part.pipe createWriteStream(req.jfum.files[i-1].file).on 'error', next
 
   form.parse req
 
