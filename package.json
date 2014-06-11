@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "start": "supervisor -w . -- examples/basic/server.coffee",
+    "start": "supervisor -w . -- examples/server.coffee",
     "build": "coffee --bare --compile --output lib/ src/*.coffee",
     "prepublish": "coffee --bare --compile --output lib/ src/*.coffee",
     "postpublish": "rm -rf lib/*",
@@ -40,6 +40,7 @@
     "coffee-script": "^1.7.1",
     "express": "^4.4.2",
     "mocha": "^1.20.1",
+    "morgan": "^1.1.1",
     "supervisor": "^0.6.0"
   },
   "dependencies": {
