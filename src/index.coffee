@@ -9,7 +9,7 @@ JFUM = module.exports = (opts) ->
   @tmpDir = opts.tmpDir or require('os').tmpdir()
   @minFileSize = opts.minFileSize or 1
   @maxFileSize = opts.maxFileSize or 10000000000
-  @acceptFileTypes = opts.acceptFileTypes or /\.(gif|jpe?g|pg)$/i
+  @acceptFileTypes = opts.acceptFileTypes or /\.(gif|jpe?g|png)$/i
 
   @
 
