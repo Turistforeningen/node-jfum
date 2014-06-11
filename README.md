@@ -34,13 +34,13 @@ var jfum = new JFUM({
 jQuery File Upload makes an OPTIONS request to the server before starting the
 uppload to make sure that it can upload to the given server.
 
-```javscript
+```javascript
 app.options('/upload', jfum.optionsHandler.bind(jfum));
 ```
 
 ### POST
 
-```javscript
+```javascript
 app.post('/upload', jfum.postHandler.bind(jfum), function(req, res) {
   if (typeof req.jfum === 'object' && typeof req.jfum.error === 'undefined') {
     // req.jfum.file - file location on disk
