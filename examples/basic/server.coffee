@@ -1,7 +1,10 @@
 exists = require('fs').exists
 app = module.exports = require('express')()
 JFUM = require '../../src/index.coffee'
-jfum = new JFUM()
+jfum = new JFUM
+  minFileSize: 0
+  maxFileSize: 10000000000
+  acceptFileTypes: /\.(gif|jpe?g|png)$/i
 
 app.options '/upload', jfum.optionsHandler.bind(jfum)
 app.post '/upload', jfum.postHandler.bind(jfum), (req, res, next) ->
