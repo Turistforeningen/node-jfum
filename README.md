@@ -28,7 +28,7 @@ var jfum = new JFUM({
   tmpDir: '/tmp',
   minFileSize: 1,
   maxFileSize: 10000000000,
-  acceptFileTypes: /\.(gif|jpe?g|pg)$/i
+  acceptFileTypes: /\.(gif|jpe?g|png)$/i
 });
 ```
 
