@@ -45,14 +45,17 @@ app.options('/upload', jfum.optionsHandler.bind(jfum));
 
 ```javascript
 app.post('/upload', jfum.postHandler.bind(jfum), function(req, res) {
-  if (typeof req.jfum === 'object' && typeof req.jfum.error === 'undefined') {
-    // req.jfum.file - file location on disk
-    // req.jfum.name - original file name
-    // req.jfum.size - file size on disk
-    // req.jfum.type - mime type for the file
-  } else {
-    // the file was rejected or not uploaded correctly
-    // error message will be in req.jfum.error
+  for (var i = 0; i < res.jfum.files.length; i++) {
+    var file = res.jfum.files[i];
+    if (typeof file === 'object' && typeof file.error === 'undefined') {
+      // file.path - file location on disk
+      // file.name - original file name
+      // file.size - file size on disk
+      // file.mime - file mime type
+    } else {
+      // the file was rejected or not uploaded correctly
+      // error message will be in req.jfum.error
+    }
   }
 });
 ```
