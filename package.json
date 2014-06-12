@@ -1,6 +1,6 @@
 {
   "name": "jfum",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Minimal jQuery File Upload Middleware",
   "main": "lib/index.js",
   "directories": {
