@@ -39,10 +39,10 @@ JFUM.prototype.postHandler = (req, res, next) ->
       return part.pipe createWriteStream('/dev/null').on 'error', next
 
     i = req.jfum.files.push
+      path: @tmpDir + '/jfum-' + hash('sha1').update(rand(128)).digest('hex')
       name: part.filename
-      file: @tmpDir + '/jfum-' + hash('sha1').update(rand(128)).digest('hex')
       size: part.byteCount
-      type: part.headers['content-type']
+      mime: part.headers['content-type']
 
     part.pipe createWriteStream(req.jfum.files[i-1].file).on 'error', next
 
