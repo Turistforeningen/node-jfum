@@ -44,7 +44,7 @@ JFUM.prototype.postHandler = (req, res, next) ->
       size: part.byteCount
       mime: part.headers['content-type']
 
-    part.pipe createWriteStream(req.jfum.files[i-1].file).on 'error', next
+    part.pipe createWriteStream(req.jfum.files[i-1].path).on 'error', next
 
   form.parse req
 
