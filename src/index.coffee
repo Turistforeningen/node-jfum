@@ -22,29 +22,42 @@ JFUM.prototype.optionsHandler = (req, res, next) ->
 JFUM.prototype.postHandler = (req, res, next) ->
   req.jfum = files: []
 
-  form = new Form()
-  form.on 'error', next
-  form.on 'close', next
-  form.on 'part', (part) =>
-    if not part.filename or not @acceptFileTypes.test part.filename
-      req.jfum.files.push error: code: 'JFUM-001', msg: 'File type not allowed'
-      return part.pipe createWriteStream('/dev/null').on 'error', next
+  cnt = 0
+  done = (err) -> next(err) if ++cnt is 1
 
-    if @maxFileSize < part.byteCount
-      req.jfum.files.push error: code: 'JFUM-002', msg: 'File size too big'
-      return part.pipe createWriteStream('/dev/null').on 'error', next
+  new Form()
 
-    if @minFileSize > part.byteCount
-      req.jfum.files.push error: code: 'JFUM-003', msg: 'File size too small'
-      return part.pipe createWriteStream('/dev/null').on 'error', next
+  .on 'error', (err) ->
+    req.jfum.error = err.message
+    done()
 
-    i = req.jfum.files.push
-      path: @tmpDir + '/jfum-' + hash('sha1').update(rand(128)).digest('hex')
+  .on 'close', done
+
+  .on 'part', (part) =>
+    req.jfum.files.push
       name: part.filename
-      size: part.byteCount
+      #size: part.byteCount
       mime: part.headers['content-type']
 
-    part.pipe createWriteStream(req.jfum.files[i-1].path).on 'error', next
+    file = req.jfum.files[req.jfum.files.length - 1]
 
-  form.parse req
+    if not part.filename or not @acceptFileTypes.test part.filename
+      file.error =
+        code: 'JFUM-001'
+        msg: 'File type not allowed'
+      return part.pipe createWriteStream('/dev/null').on 'error', done
+
+    #if @maxFileSize < part.byteCount
+    #  req.jfum.files.push error: code: 'JFUM-002', msg: 'File size too big'
+    #  return part.pipe createWriteStream('/dev/null').on 'error', done
+
+    #if @minFileSize > part.byteCount
+    #  req.jfum.files.push error: code: 'JFUM-003', msg: 'File size too small'
+    #  return part.pipe createWriteStream('/dev/null').on 'error', done
+
+    file.path = @tmpDir + '/jfum-' + hash('sha1').update(rand(128)).digest('hex')
+
+    part.pipe createWriteStream(file.path).on 'error', done
+
+  .parse req
 
