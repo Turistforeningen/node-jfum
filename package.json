@@ -38,7 +38,7 @@
   "homepage": "https://github.com/Turistforeningen/jfum",
   "devDependencies": {
     "coffee-script": "^1.7.1",
-    "express": "^4.4.2",
+    "express": "^4.4.3",
     "mocha": "^1.20.1",
     "morgan": "^1.1.1",
     "supervisor": "^0.6.0"
