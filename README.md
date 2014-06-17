@@ -1,8 +1,12 @@
 jQuery File Upload Middleware [![Build Status](https://drone.io/github.com/Turistforeningen/node-jfum/status.png)](https://drone.io/github.com/Turistforeningen/node-jfum/latest)
 =============================
 
+[![NPM](https://nodei.co/npm/jfum.png?downloads=true)](https://www.npmjs.org/package/jfum)
+
 `Warning` this module is currently in active development and will change without
 notice!
+
+
 
 ## Features
 
