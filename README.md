@@ -1,4 +1,4 @@
-jQuery File Upload Middleware
+jQuery File Upload Middleware [![Build Status](https://drone.io/github.com/Turistforeningen/node-jfum/status.png)](https://drone.io/github.com/Turistforeningen/node-jfum/latest)
 =============================
 
 `Warning` this module is currently in active development and will change without
