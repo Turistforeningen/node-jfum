@@ -6,8 +6,6 @@ jQuery File Upload Middleware [![Build Status](https://drone.io/github.com/Turis
 `Warning` this module is currently in active development and will change without
 notice!
 
-
-
 ## Features
 
 * Bare minimal – no extra stuff
