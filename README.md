@@ -47,8 +47,8 @@ app.options('/upload', jfum.optionsHandler.bind(jfum));
 
 ```javascript
 app.post('/upload', jfum.postHandler.bind(jfum), function(req, res) {
-  for (var i = 0; i < res.jfum.files.length; i++) {
-    var file = res.jfum.files[i];
+  for (var i = 0; i < req.jfum.files.length; i++) {
+    var file = req.jfum.files[i];
     if (typeof file === 'object' && typeof file.error === 'undefined') {
       // file.path - file location on disk
       // file.name - original file name
