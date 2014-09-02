@@ -25,7 +25,7 @@ npm install jfum --save
 ## Usage
 
 ```javascript
-var JFUM = require('JFUM');
+var JFUM = require('jfum');
 var jfum = new JFUM({
   tmpDir: '/tmp',
   minFileSize: 204800,  // 200 kB
