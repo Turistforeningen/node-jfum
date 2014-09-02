@@ -50,7 +50,7 @@ app.post('/upload', jfum.postHandler.bind(jfum), function(req, res) {
   for (var i = 0; i < req.jfum.files.length; i++) {
     var file = req.jfum.files[i];
     if (typeof file === 'object' && typeof file.error === 'undefined') {
-      // file.path - file location on disk
+      // file.path - full path to file
       // file.name - original file name
       // file.size - file size on disk
       // file.mime - file mime type
