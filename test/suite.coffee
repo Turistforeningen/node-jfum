@@ -39,10 +39,11 @@ describe 'JFUM', ->
       assert.equal req.jfum.error, undefined
       assert.equal req.jfum.files.length, 1
       for file, i in req.jfum.files
-        assert.deepEqual Object.keys(file), ['name', 'mime', 'path']
+        assert.deepEqual Object.keys(file), ['field', 'name', 'path', 'size', 'mime', 'errors']
         assert.equal typeof file.path, 'string'
         assert.equal file.name, files[i].name
         assert.equal file.mime, files[i].mime
+        # @TODO
       res.end()
       done()
 
@@ -55,10 +56,11 @@ describe 'JFUM', ->
       assert.equal req.jfum.error, undefined
       assert.equal req.jfum.files.length, 2
       for file, i in req.jfum.files
-        assert.deepEqual Object.keys(file), ['name', 'mime', 'path']
+        assert.deepEqual Object.keys(file), ['field', 'name', 'path', 'size', 'mime', 'errors']
         assert.equal typeof file.path, 'string'
         assert.equal file.name, files[i].name
         assert.equal file.mime, files[i].mime
+        # @TODO
       res.end()
       done()
 
@@ -88,16 +90,18 @@ describe 'JFUM', ->
 
     req = null
 
-  it 'should handle invalid file', (done) ->
+  it 'should handle invalid file type', (done) ->
     files[0].name = 'foo.tiff'
     files[0].mime = 'image/tiff'
 
     app.post '/upload4', jfum.postHandler.bind(jfum), (req, res, next) ->
       assert.equal typeof req.jfum.error, 'undefined'
       assert.deepEqual req.jfum.files, [{
+        field: 'files[]'
         name: files[0].name
+        size: 1369
         mime: files[0].mime
-        error: code: 'JFUM-001', msg: 'File type not allowed'
+        errors: [code: 'JFUM-001', message: 'File type not allowed']
       }]
       res.end()
       done()
