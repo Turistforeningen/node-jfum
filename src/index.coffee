@@ -21,7 +21,7 @@ JFUM.prototype.postHandler = (req, res, next) ->
 
   _cnt = 0
   done = (err) ->
-    return next err if ++cnt is 1
+    return next err if ++_cnt is 1
 
   new Form()
 
