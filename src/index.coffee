@@ -19,13 +19,17 @@ JFUM.prototype.optionsHandler = (req, res, next) ->
 JFUM.prototype.postHandler = (req, res, next) ->
   req.jfum = files: []
 
+  _cnt = 0
+  done = (err) ->
+    return next err if ++cnt is 1
+
   new Form()
 
   .on 'error', (err) ->
     req.jfum.error = err.message
-    next()
+    done()
 
-  .on 'close', next
+  .on 'close', done
 
   .on 'file', (field, file) =>
     file =
