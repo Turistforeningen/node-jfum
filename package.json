@@ -19,13 +19,13 @@
     "url": "git://github.com/Turistforeningen/node-jfum.git"
   },
   "keywords": [
-    "aws",
-    "s3",
-    "imagemagic",
     "image",
-    "resize",
-    "rename",
-    "upload"
+    "upload",
+    "jquery",
+    "jquery-file-upload",
+    "express",
+    "expressjs",
+    "middleware"
   ],
   "contributors": [
     "Håvard Ranum <havard.ranum@bouvet.no>",
