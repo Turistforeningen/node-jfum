@@ -7,12 +7,12 @@ $script = <<SCRIPT
 # Update & Install
 echo 'Updating and installing ubuntu packages...'
 apt-get update
-apt-get install -y build-essential git curl imagemagick
+apt-get install -y build-essential git curl
 
 # NodeJS via NVM
 echo "Installing Node Version Manager..."
 export HOME=/home/vagrant
-curl https://raw.githubusercontent.com/creationix/nvm/v0.7.0/install.sh | sh
+curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
 echo "source ~/.nvm/nvm.sh" >> /home/vagrant/.bashrc
 source /home/vagrant/.nvm/nvm.sh
 #nvm install 0.8
